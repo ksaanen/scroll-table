@@ -1,0 +1,36 @@
+table.scroll {
+  border-spacing: 0;
+  width: 100%;
+  border: 2px solid black;
+}
+
+table.scroll tbody,
+table.scroll thead,
+table.scroll tfoot {
+  display: block;
+  width: 100%;
+}
+
+table.scroll tbody {
+  height: 200px;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+table.scroll th,
+table.scroll td {
+  padding: 0 5px;
+}
+
+table.scroll tr th {
+  height: 30px;
+  line-height: 30px;
+  text-align: left;
+  text-overflow: ellipsis;
+}
+table.scroll tbody td {
+  white-space: nowrap;
+}
+table.scroll tbody td:first-of-type {
+  white-space: normal;
+}
