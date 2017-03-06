@@ -16,8 +16,6 @@
     };
     return directive;
 
-    let change;
-
     function link(scope, element, attrs) {
 
       element.addClass('scroll');
