@@ -1,0 +1,18 @@
+* {
+  box-sizing: border-box;
+}
+
+[scroll-table] {
+  position: relative;
+  height: 200px;
+  overflow-x: auto;
+  overflow-y: auto;
+}
+[scroll-table] table {
+  width: 100%;
+}
+
+[fixed-header] thead,
+[fixed-footer] tfoot {
+  position: absolute;
+}
