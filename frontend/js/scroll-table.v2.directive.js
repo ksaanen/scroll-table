@@ -3,8 +3,8 @@
 
   app.directive('scrollTable', directive);
 
-  directive.$inject = ['$window'];
-  function directive($window) {
+  directive.$inject = ['$window', '$timeout'];
+  function directive($window, $timeout) {
 
     function link($scope, $element, $attrs) {
 
@@ -19,6 +19,13 @@
 
       let $fixHeader = $attrs.hasOwnProperty('fixedHeader');
       let $fixFooter = $attrs.hasOwnProperty('fixedFooter');
+
+      function styles() {
+        $table.addClass('table table-sm');
+        $thead.addClass('thead-dark');
+        $tfoot.addClass('thead-light');
+      }
+      styles();
 
       function apply() {
         for (let i = 0; i < $tbody_cells.length; i++) {
@@ -72,9 +79,13 @@
         position();
       });
 
-      angular.element($window).bind('resize', function(e){
-        reset();
-        init();
+      let resizeTimer; // debounced timer
+      angular.element($window).bind('resize', function(e) {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(function() {
+          reset();
+          init();
+        }, 250);
       });
 
       init();
