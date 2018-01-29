@@ -9,7 +9,7 @@
     function link($scope, $element, $attrs) {
 
       let $table = $element.find("table");
-      let $thead = $element.find("thead");
+      let $thead = $table.find("thead");
       let $tbody = $table.find("tbody");
       let $tfoot = $table.find("tfoot");
 
