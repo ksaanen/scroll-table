@@ -2,12 +2,15 @@
   box-sizing: border-box;
 }
 
+scroll-table,
 [scroll-table] {
+  display: block;
   position: relative;
   height: 200px;
   overflow-x: auto;
   overflow-y: auto;
 }
+scroll-table table,
 [scroll-table] table {
   width: 100%;
 }
