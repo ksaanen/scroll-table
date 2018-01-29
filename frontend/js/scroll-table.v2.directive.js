@@ -8,6 +8,8 @@
 
     function link($scope, $element, $attrs) {
 
+      let delay = 150;
+
       let $table = $element.find("table");
       let $thead = $table.find("thead");
       let $tbody = $table.find("tbody");
@@ -21,11 +23,17 @@
       let $fixFooter = $attrs.hasOwnProperty('fixedFooter');
 
       function styles() {
-        $table.addClass('table table-sm');
-        $thead.addClass('thead-dark');
-        $tfoot.addClass('thead-light');
+        $table.addClass('table table-condensed table-striped');
+        $thead.addClass('thead-inverse');
+        $tfoot.addClass('tfoot-inverse');
       }
       styles();
+
+      function relink() {
+        $thead_cells = $thead.find("tr").children();
+        $tbody_cells = $tbody.children().eq(0).children();
+        $tfoot_cells = $tfoot.find("tr").children();
+      }
 
       function apply() {
         for (let i = 0; i < $tbody_cells.length; i++) {
@@ -57,16 +65,16 @@
 
       function reset() {
         for (let i = 0; i < $tbody_cells.length; i++) {
-          if ($fixHeader) {
-            $thead_cells.eq(i).css('width', null);
-            $thead_cells.eq(i).css('min-width', null);
+          if ($fixHeader && $thead) {
+            $thead_cells.eq(i).css('width', '');
+            $thead_cells.eq(i).css('min-width', '');
           }
-          if ($fixFooter) {
-            $tfoot_cells.eq(i).css('width', null);
-            $tfoot_cells.eq(i).css('min-width', null);
+          if ($fixFooter && $tfoot) {
+            $tfoot_cells.eq(i).css('width', '');
+            $tfoot_cells.eq(i).css('min-width', '');
           }
-          $tbody_cells.eq(i).css('width', null);
-          $tbody_cells.eq(i).css('min-width', null);
+          $tbody_cells.eq(i).css('width', '');  
+          $tbody_cells.eq(i).css('min-width', '');
         }
       }
       
@@ -80,16 +88,30 @@
       });
 
       let resizeTimer; // debounced timer
-      angular.element($window).bind('resize', function(e) {
+      angular.element($window).bind('resize', function(){
         clearTimeout(resizeTimer);
-        resizeTimer = setTimeout(function() {
+        resizeTimer = setTimeout(function () {
           reset();
           init();
-        }, 250);
+        }, delay);
       });
 
       init();
 
+      $scope.$watch(
+        function () {
+          return $tbody.children().length
+        },
+        function (newValue, oldValue) {
+          if (newValue !== oldValue) {
+            setTimeout(function () {
+              relink();
+              reset();
+              init();
+            }, delay);
+          }
+        }
+      );
     }
     return {
       link: link,
