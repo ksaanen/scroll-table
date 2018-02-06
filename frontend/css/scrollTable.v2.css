@@ -4,18 +4,24 @@
 
 scroll-table,
 [scroll-table] {
-  display: block;
+  display:block;
   position: relative;
-  height: 200px;
+  height: 33vh;
   overflow-x: auto;
   overflow-y: auto;
 }
+
 scroll-table table,
 [scroll-table] table {
   width: 100%;
 }
 
-[fixed-header] thead,
-[fixed-footer] tfoot {
-  position: absolute;
+.thead-inverse > tr > th,
+.thead-inverse > tr > td,
+.tfoot-inverse > tr > th,
+.tfoot-inverse > tr > td {
+  color: #fff;
+  background-color: black;
+  padding-top:5px !important;
+  padding-bottom:5px !important;
 }
